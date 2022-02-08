@@ -67,10 +67,11 @@ export default class App extends React.Component {
         <h2>ToDo List: MVP</h2>
         <TodoList handleToggleTodo={this.handleToggleTodo} todo={this.state.todo} />
       </div>
-      <Form 
-      onSubmit={this.onSubmit}
-      onChange={this.onChange}
-      textInput={this.state.textInput} />
+      <Form
+        handleAddTodo={this.handleAddTodo} 
+        onSubmit={this.onSubmit}
+        onChange={this.onChange}
+        textInput={this.state.textInput} />
     </div>
     );
   }
