@@ -30,7 +30,7 @@ export default class App extends React.Component {
 
   onChange = event => { 
     const { value } = event.target
-    this.setState({ ...this.state, [id]: value })
+    this.setState({ ...this.state, taskInput: value })
   }
 
   onSubmit = event => {
@@ -41,7 +41,23 @@ export default class App extends React.Component {
     };
 
     event.preventDefault()
-    this.setState({ ...this.state, todo: this.state.taskInput}) 
+    this.setState({ ...this.state, todo:[ ...this.state.todo, newTodo]}) 
+  }
+
+  handleToggleTodo = (selectedTodo) => {
+    this.setState({
+      ...this.state,
+      todo: this.state.todo.map(todo => {
+        if(todo.id === selectedTodo.id) {
+          return({
+            ...todo,
+            completed: !todo.completed
+          })
+        } else {
+          return todo;
+        }
+      })
+    });
   }
 
   render() {
@@ -49,10 +65,12 @@ export default class App extends React.Component {
     <div>
       <div>
         <h2>ToDo List: MVP</h2>
-      <TodoList/>
+        <TodoList handleToggleTodo={this.handleToggleTodo} todo={this.state.todo} />
       </div>
       <Form 
-      onSubmit={this.onSubmit} />
+      onSubmit={this.onSubmit}
+      onChange={this.onChange}
+      textInput={this.state.textInput} />
     </div>
     );
   }
